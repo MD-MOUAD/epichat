@@ -1,12 +1,9 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState, useTransition } from 'react'
+import { useState } from 'react'
 import { BeatLoader } from 'react-spinners'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import Image from 'next/image'
-import epichatLogo from '@/public/assets/epichat-logo.png'
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -17,9 +14,9 @@ const NewVerificationForm = () => {
   const token = useSearchParams().get('token')
   const [formError, setFormError] = useState<string | undefined>()
   const [formSuccess, setFormSuccess] = useState<string | undefined>()
-  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = async () => {
     setFormError('')
     setFormSuccess('')
 
@@ -31,66 +28,52 @@ const NewVerificationForm = () => {
     }
 
     try {
+      setLoading(true)
       const res = await newVerification(token)
-      startTransition(() => {
-        if (res.success) {
-          setFormSuccess(res.success)
-        } else {
-          setFormError(
-            res.error ||
-              'Verification failed. Please try again later or contact support for assistance.'
-          )
-        }
-      })
+      if (res.success) {
+        setFormSuccess(res.success)
+      } else {
+        setFormError(
+          res.error ||
+            'Verification failed. Please try again later or contact support for assistance.'
+        )
+      }
     } catch {
       setFormError(
         'An unexpected error occurred while processing your verification request. Please refresh the page and try again.'
       )
+    } finally {
+      setLoading(false)
     }
-  }, [token])
-
-  useEffect(() => {
-    startTransition(() => {
-      onSubmit()
-    })
-  }, [onSubmit])
+  }
 
   return (
-    <div className='flex max-w-[400px] flex-col gap-2 rounded-lg border bg-card p-6 shadow-lg lg:w-[500px]'>
-      <div className='mb-4 flex flex-col items-center gap-2'>
-        <div className='flex items-center justify-center gap-2'>
-          <h2 className='text-3xl font-bold'>Epichat</h2>
-          <Image src={epichatLogo} alt='Next.js logo' className='size-7' />
+    <>
+      {!loading && !formError && !formSuccess && (
+        <Button onClick={onSubmit}>Verify Your Email</Button>
+      )}
+      {/* Show loader during loading */}
+      {loading && (
+        <div className='flex flex-col items-center justify-center gap-2'>
+          <p className='text-center text-lg text-muted-foreground'>
+            Confirming your verification
+          </p>
+          <BeatLoader />
         </div>
-        <p className='text-center text-lg text-muted-foreground'>
-          Confirming your verification
-        </p>
-        {/* Show loader during the transition */}
-        {isPending && <BeatLoader />}
-        <div className='my-6'>
-          {formError && (
-            <div className='space-x-1'>
-              <ExclamationCircleIcon className='inline size-5 text-red-500' />
-              <span className='text-sm text-red-500'>{formError}</span>
-            </div>
-          )}
-          {formSuccess && (
-            <div className='space-x-1'>
-              <CheckCircleIcon className='inline size-5 text-emerald-600' />
-              <span className='text-sm text-emerald-600'>{formSuccess}</span>
-            </div>
-          )}
+      )}
+      {formError && (
+        <div className='space-x-1'>
+          <ExclamationCircleIcon className='inline size-5 text-red-500' />
+          <span className='text-sm text-red-500'>{formError}</span>
         </div>
-        <Button
-          variant='link'
-          size='sm'
-          className='text-base font-bold'
-          asChild
-        >
-          <Link href='/auth/login'>Back to login</Link>
-        </Button>
-      </div>
-    </div>
+      )}
+      {formSuccess && (
+        <div className='space-x-1'>
+          <CheckCircleIcon className='inline size-5 text-emerald-600' />
+          <span className='text-sm text-emerald-600'>{formSuccess}</span>
+        </div>
+      )}
+    </>
   )
 }
 

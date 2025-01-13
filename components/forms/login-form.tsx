@@ -22,11 +22,18 @@ import {
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import { useRef, useState } from 'react'
 import { login } from '@/actions/login'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 export function LoginForm() {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [formError, setFormError] = useState('')
+  const searchParams = useSearchParams()
+  const UrlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'This email is already linked to another account. Please use the original provider.'
+      : ''
 
   const form = useForm<loginValues>({
     resolver: zodResolver(loginSchema),
@@ -41,8 +48,7 @@ export function LoginForm() {
 
     const res = await login(values)
     if (res?.success) {
-      console.log('login success')
-      form.reset()
+      // This will not happened because of login redirect
       window.location.href = '/'
     } else {
       setFormError(
@@ -117,7 +123,16 @@ export function LoginForm() {
                     )}
                   </button>
                 </div>
-                <FormMessage />
+                <div className='!mt-1 flex items-center justify-end'>
+                  <Button
+                    size='sm'
+                    variant='link'
+                    className='mr-1 h-auto px-0 font-medium text-foreground'
+                  >
+                    <Link href='/auth/password-reset'>Forgot password?</Link>
+                  </Button>
+                </div>
+                <FormMessage className='!mt-0' />
               </FormItem>
             )
           }}
@@ -132,10 +147,12 @@ export function LoginForm() {
           Login <ArrowRightIcon className='ml-auto size-6' />
         </Button>
         <div aria-live='polite' aria-atomic='true'>
-          {formError && (
+          {(formError || UrlError) && (
             <div className='space-x-1'>
-              <ExclamationCircleIcon className='inline size-5 text-red-500' />
-              <span className='text-sm text-red-500'>{formError}</span>
+              <ExclamationCircleIcon className='inline size-4 text-red-500' />
+              <span className='text-sm text-red-500'>
+                {formError || UrlError}
+              </span>
             </div>
           )}
         </div>

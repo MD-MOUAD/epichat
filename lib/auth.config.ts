@@ -5,12 +5,11 @@ import { loginSchema } from '@/validations/login.validation'
 import { oauthVerifyEmailAction } from '@/actions/oAuthEmailVerification'
 import { findUserByEmail, findUserByUsername } from '@/lib/data/user'
 import { comparePassword } from '@/lib/password'
-// import { generateVerificationToken } from '@/lib/data/verification-token'
-// import { sendVerificationEmail } from '@/lib/nodemailer'
 
 export default {
   pages: {
     signIn: '/auth/login',
+    error: '/auth/error',
   },
   secret: process.env.AUTH_SECRET,
   callbacks: {

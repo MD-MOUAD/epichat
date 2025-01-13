@@ -5,6 +5,7 @@ import Link from 'next/link'
 import signinImage from '@/public/assets/smiley-friends-outdoors.jpg'
 import SocialButtons from '@/components/auth/SocialButtons'
 import { TextShimmerWave } from '@/components/ui/text-shimmer-wave'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Log In',
@@ -39,7 +40,9 @@ export default function Page() {
               </span>
               <div className='h-1 flex-1 bg-muted' />
             </div>
-            <LoginForm />
+            <Suspense>
+              <LoginForm />
+            </Suspense>
           </div>
         </div>
         <Link

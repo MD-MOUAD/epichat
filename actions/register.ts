@@ -35,12 +35,27 @@ export async function register(values: registerValues): Promise<Res> {
   const { username, email, password } = parsedValues.data
   try {
     // Check if email already exists
-    const existingEmail = await findUserByEmail(email)
-    if (existingEmail) {
-      return {
-        success: false,
-        error: 'This email is already registered. Please use a different one.',
-        statusCode: 409,
+    const existingUser = await findUserByEmail(email)
+    if (existingUser) {
+      if (existingUser.emailVerified) {
+        return {
+          success: false,
+          error:
+            'This email is already registered. Please use a different one.',
+          statusCode: 409,
+        }
+      } else {
+        const now = new Date().getTime()
+        if (now - existingUser.createdAt.getTime() > 72 * 3600 * 1000) {
+          await prisma.user.delete({ where: { email: existingUser.email } })
+        } else {
+          return {
+            success: false,
+            error:
+              'This email is already registered but not verified. If you believe this email is yours, try again in 3 days or contact support.',
+            statusCode: 409,
+          }
+        }
       }
     }
 
