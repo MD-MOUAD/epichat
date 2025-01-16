@@ -11,7 +11,6 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
     },
     extend: {
       colors: {
@@ -60,6 +59,9 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      spacing: {
+        navbar: 'var(--navbar-height)',
       },
     },
   },

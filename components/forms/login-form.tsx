@@ -48,7 +48,6 @@ export function LoginForm() {
 
     const res = await login(values)
     if (res?.success) {
-      // This will not happened because of login redirect
       window.location.href = '/'
     } else {
       setFormError(

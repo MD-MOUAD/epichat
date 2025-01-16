@@ -4,8 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import signinImage from '@/public/assets/smiley-friends-outdoors.jpg'
 import SocialButtons from '@/components/auth/SocialButtons'
-import { TextShimmerWave } from '@/components/ui/text-shimmer-wave'
 import { Suspense } from 'react'
+import { caveat } from '@/fonts'
 
 export const metadata: Metadata = {
   title: 'Log In',
@@ -13,23 +13,28 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className='flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl'>
-      <div className='flex w-full flex-col justify-between overflow-y-auto p-10 md:w-1/2'>
+    <div className='flex h-full w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl md:max-h-[40rem]'>
+      <div className='flex w-full flex-col justify-between overflow-y-auto p-8 sm:p-10 md:w-1/2'>
         <div className='flex flex-col gap-y-10'>
           <div className='space-y-1 text-center'>
-            <h1 className='text-center text-3xl font-bold'>Login to Epichat</h1>
-            <TextShimmerWave
-              className='[--base-color:#71717A] [--base-gradient-color:#ccc]'
-              duration={1}
-              spread={1}
-              zDistance={1}
-              scaleDistance={1.1}
-              rotateYDistance={20}
-            >
-              Welcome back!
-            </TextShimmerWave>
+            <h1 className='text-center text-2xl font-semibold'>
+              Login to{' '}
+              <span
+                className={`${caveat.className} bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text font-bold text-transparent xl:text-3xl`}
+              >
+                Epichat
+              </span>
+            </h1>
+            <p className='text-muted-foreground'>Welcome back!</p>
           </div>
-          <div className='space-y-6'>
+
+          <Image
+            src={signinImage}
+            alt='epichat-signin-image'
+            className='aspect-video rounded-md object-cover md:hidden'
+            priority
+          />
+          <div className='space-y-3 md:space-y-6'>
             <SocialButtons />
 
             {/* Spacer */}
