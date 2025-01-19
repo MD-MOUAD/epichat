@@ -14,5 +14,6 @@ declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
     // token.id
     id: PrismaUser['id']
+    username: PrismaUser['username']
   }
 }

@@ -16,11 +16,13 @@ export default {
     jwt({ token, user }) {
       // User is available during sign-in
       if (user?.id) token.id = user.id
+      if (user?.username) token.username = user.username
 
       return token
     },
     session({ token, session }) {
       session.user.id = token.id
+      session.user.username = token.username
       return session
     },
     async signIn({ user, account, profile }) {

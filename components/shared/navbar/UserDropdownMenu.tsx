@@ -25,7 +25,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { LogOut, Monitor, Moon, MoonIcon, Sun, SunIcon } from 'lucide-react'
+import { LogOut, Monitor, MoonIcon, SunIcon } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 
@@ -36,16 +36,15 @@ const UserDropdownMenu = () => {
       <DropdownMenuTrigger className='rounded-full'>
         <UserAvatar />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className='mr-1 mt-2'>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Billing</DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className='flex items-center gap-2'>
+            <Monitor className='size-4' />
             <span>Theme</span>
-            <Sun className='size-4 transition-all dark:hidden' />
-            <Moon className='hidden size-4 transition-all dark:block' />
             <span className='sr-only'>Toggle theme</span>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
@@ -67,9 +66,9 @@ const UserDropdownMenu = () => {
         </DropdownMenuSub>
         <DropdownMenuItem onClick={(event) => event.preventDefault()}>
           <AlertDialog>
-            <AlertDialogTrigger className='flex w-full items-center justify-between'>
-              <span>Logout</span>
+            <AlertDialogTrigger className='flex w-full items-center gap-2'>
               <LogOut size={15} />
+              <span>Logout</span>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>

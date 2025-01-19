@@ -15,7 +15,7 @@ export default function AuthLayout({
         <div className='container flex h-full items-center justify-between px-2'>
           <Link href='/auth/login'>
             <h1
-              className={`${caveat.className} bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text p-1 text-2xl font-bold text-transparent xl:text-3xl`}
+              className={`${caveat.className} h-full bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text p-1 text-2xl font-bold text-transparent hover:cursor-pointer xl:text-3xl`}
             >
               Epichat
             </h1>
