@@ -1,21 +1,21 @@
-'use client';
-import { type JSX } from 'react';
-import { motion, Transition } from 'motion/react';
-import { cn } from '@/lib/utils';
+'use client'
+import { type JSX } from 'react'
+import { motion, Transition } from 'motion/react'
+import { cn } from '@/lib/utils'
 
 export type TextShimmerWaveProps = {
-  children: string;
-  as?: React.ElementType;
-  className?: string;
-  duration?: number;
-  zDistance?: number;
-  xDistance?: number;
-  yDistance?: number;
-  spread?: number;
-  scaleDistance?: number;
-  rotateYDistance?: number;
-  transition?: Transition;
-};
+  children: string
+  as?: React.ElementType
+  className?: string
+  duration?: number
+  zDistance?: number
+  xDistance?: number
+  yDistance?: number
+  spread?: number
+  scaleDistance?: number
+  rotateYDistance?: number
+  transition?: Transition
+}
 
 export function TextShimmerWave({
   children,
@@ -32,7 +32,7 @@ export function TextShimmerWave({
 }: TextShimmerWaveProps) {
   const MotionComponent = motion.create(
     Component as keyof JSX.IntrinsicElements
-  );
+  )
 
   return (
     <MotionComponent
@@ -45,7 +45,7 @@ export function TextShimmerWave({
       style={{ color: 'var(--base-color)' }}
     >
       {children.split('').map((char, i) => {
-        const delay = (i * duration * (1 / spread)) / children.length;
+        const delay = (i * duration * (1 / spread)) / children.length
 
         return (
           <motion.span
@@ -82,8 +82,8 @@ export function TextShimmerWave({
           >
             {char}
           </motion.span>
-        );
+        )
       })}
     </MotionComponent>
-  );
+  )
 }
