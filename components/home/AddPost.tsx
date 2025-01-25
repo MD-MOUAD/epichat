@@ -7,8 +7,8 @@ import { CalendarDays, Images, Video, Vote } from 'lucide-react'
 const actions = [
   { label: 'Picture', icon: Images },
   { label: 'Video', icon: Video },
-  { label: 'Poll', icon: CalendarDays },
-  { label: 'Event', icon: Vote },
+  { label: 'Event', icon: CalendarDays },
+  { label: 'Poll', icon: Vote },
 ]
 
 function AddPost({ user }: { user: User }) {
@@ -18,7 +18,7 @@ function AddPost({ user }: { user: User }) {
     <Card>
       <CardContent className='px-4 py-2'>
         <div className='flex gap-2'>
-          <Avatar>
+          <Avatar className='mt-2 size-8'>
             <AvatarImage
               src={userImage || '/assets/default-avatar'}
               alt='avatar'
@@ -29,10 +29,10 @@ function AddPost({ user }: { user: User }) {
           </Avatar>
           <Textarea placeholder="What's on your mind?" />
         </div>
-        <div className='mt-2 flex flex-wrap items-center gap-4'>
+        <div className='mt-3 flex flex-wrap items-center gap-4 justify-center'>
           {actions.map(({ label, icon: Icon }, i) => {
             return (
-              <div key={i} className='flex items-center justify-center gap-1'>
+              <div key={i} className='flex items-center justify-center gap-1 flex-1'>
                 <Icon className='size-5' />
                 <span>{label}</span>
               </div>
