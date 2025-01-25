@@ -75,12 +75,12 @@ const HomeStories = ({ user }: { user: User }) => {
         className='no-scrollbar flex w-full gap-3 overflow-scroll text-xs'
       >
         {/* Add Story */}
-        <div className='group flex h-44 w-28 shrink-0 flex-col rounded-lg border opacity-85 transition-all duration-500 hover:cursor-pointer hover:opacity-100'>
+        <div className='group flex h-40 w-24 shrink-0 flex-col rounded-lg border opacity-85 transition-all duration-500 hover:cursor-pointer hover:opacity-100'>
           <Image
             src={user.image || '/assets/new-story.png'}
             alt='profile'
-            width={176}
-            height={112}
+            width={112}
+            height={176}
             className='aspect-square w-28 shrink-0 overflow-hidden rounded-t-lg object-cover'
             priority
           />
@@ -104,9 +104,9 @@ const HomeStories = ({ user }: { user: User }) => {
               <Image
                 src={story.media.source}
                 alt={`${story.user.username}'s story`}
-                width={176}
-                height={112}
-                className='h-44 w-28 overflow-hidden rounded-lg object-cover brightness-90 transition-all duration-500 hover:brightness-75'
+                width={96}
+                height={160}
+                className='h-40 w-24 overflow-hidden rounded-lg object-cover brightness-90 transition-all duration-500 hover:brightness-75'
                 priority
               />
 
