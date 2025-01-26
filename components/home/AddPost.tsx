@@ -19,14 +19,14 @@ function AddPost({ user }: { user: User }) {
         <div className='flex items-center justify-between gap-4'>
           <Avatar className='size-8'>
             <AvatarImage
-              src={userImage || '/assets/default-avatar'}
+              src={userImage || '/assets/default-avatar.png'}
               alt='avatar'
               referrerPolicy='no-referrer'
               className='object-cover hover:brightness-110'
             />
             <AvatarFallback>{userName?.charAt(0).toUpperCase()}</AvatarFallback>
           </Avatar>
-          <div className='flex-1 cursor-pointer rounded-xl bg-muted/60 px-5 py-2.5 text-xs text-card-foreground/50 shadow-sm hover:bg-muted'>
+          <div className='flex-1 cursor-pointer rounded-3xl bg-muted/60 px-5 py-2.5 text-xs text-card-foreground/50 shadow-sm hover:bg-muted'>
             Tell your friends about your thoughts...
           </div>
         </div>

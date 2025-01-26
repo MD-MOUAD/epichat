@@ -4,9 +4,9 @@ import Link from 'next/link'
 import SearchInput from './SearchInput'
 
 const navbarLinks = [
-  { Label: 'Home', href: '/', icon: Home },
-  { Label: 'Friends', href: '/friends', icon: UsersRound },
-  { Label: 'Stories', href: 'stories', icon: CircleFadingPlus },
+  { label: 'Home', href: '/', icon: Home },
+  { label: 'Friends', href: '/friends', icon: UsersRound },
+  { label: 'Stories', href: 'stories', icon: CircleFadingPlus },
 ]
 const NavbarMiddleSection = ({ className }: { className?: string }) => {
   return (
@@ -16,11 +16,11 @@ const NavbarMiddleSection = ({ className }: { className?: string }) => {
       <SearchInput />
       <div className='flex items-center gap-5'>
         {navbarLinks.map((link) => {
-          const { Label, href, icon: Icon } = link
+          const { label, href, icon: Icon } = link
           return (
             <Link key={href} href={href} className='flex items-center gap-1'>
               <Icon className='size-5' />
-              <span className='text-sm font-medium'>{Label}</span>
+              <span className='text-sm font-medium'>{label}</span>
             </Link>
           )
         })}
